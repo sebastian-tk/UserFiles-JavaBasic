@@ -3,10 +3,7 @@ package com.app;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 /*
  Następnie przygotuj klasę Dane, która zawiera w sobie mapę. Kluczem mapy jest napis – nazwa pliku tekstowego,
@@ -21,6 +18,19 @@ public class Data {
         filesMap = initMap(filesName);
     }
 
+    protected Map<String,String> getData(){
+        return filesMap;
+    }
+
+    /*protected void setValue(String key,String value){
+        if(key == null || key.isEmpty()){
+            throw new IllegalArgumentException("Invalid key argument");
+        }
+        if(value == null ){
+            throw new IllegalArgumentException("Invalid value argument");
+        }
+        filesMap.computeIfPresent(key,(mainKey,val)-> value);
+    }*/
     /**
      *
      * @param filesName Set with Strings
@@ -41,7 +51,7 @@ public class Data {
      * @return  String as data from file
      */
     private String readData(String fileName){
-        if(fileName == null || filesMap.isEmpty()){
+        if(fileName == null || fileName.isEmpty()){
             throw new IllegalArgumentException("Name of file is not valid");
         }
         StringBuilder strBui = new StringBuilder();
@@ -54,5 +64,18 @@ public class Data {
             throw new IllegalStateException("File error");
         }
         return strBui.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Data data = (Data) o;
+        return Objects.equals(filesMap, data.filesMap);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(filesMap);
     }
 }

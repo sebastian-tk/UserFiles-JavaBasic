@@ -24,19 +24,26 @@ import java.util.Set;
  */
 public class App {
     public static void main(String[] args) {
-        Set<User> users = Set.of(
-                new User("Iza Nowak", new char[]{'p', 'a', 's', 's','1'},AccountType.USER),
-                new User("Adam Kowal", new char[]{'p', 'a', 's', 's', '2',},AccountType.USER),
-                new User("Ola Kazal", new char[]{'p', 'a', 's', 's', '3'},AccountType.ADMIN),
-                new User("Kamil Szybki", new char[]{'p', 'a', 's', 's', '4'},AccountType.USER),
-                new User("Tomasz Jaki", new char[]{'p', 'a', 's', 's', '5'},AccountType.ADMIN),
-                new User("Marta Mucha", new char[]{'p', 'a', 's', 's', '6'},AccountType.USER)
-        );
-        Set<String> files = new HashSet<>();
-        files.add("src/com/app/file1.txt");
-        files.add("src/com/app/file2.txt");
-        files.add("src/com/app/file3.txt");
-        files.add("src/com/app/file4.txt");
+        try{
+            Set<User> users = Set.of(
+                    new User("Iza Nowak", new char[]{'p', 'a', 's', 's','1'},AccountType.USER),
+                    new User("Adam Kowal", new char[]{'p', 'a', 's', 's', '2',},AccountType.USER),
+                    new User("Ola Kazal", new char[]{'p', 'a', 's', 's', '3'},AccountType.ADMIN),
+                    new User("Kamil Szybki", new char[]{'p', 'a', 's', 's', '4'},AccountType.USER),
+                    new User("Tomasz Jaki", new char[]{'p', 'a', 's', 's', '5'},AccountType.ADMIN),
+                    new User("Marta Mucha", new char[]{'p', 'a', 's', 's', '6'},AccountType.USER)
+            );
+            Set<String> files = new HashSet<>();
+            files.add("src/com/app/file1.txt");
+            files.add("src/com/app/file2.txt");
+            files.add("src/com/app/file3.txt");
+            files.add("src/com/app/file4.txt");
 
+            Data data  = new Data(files);
+
+
+        }catch (Exception exc){
+            System.out.println(exc.getMessage());
+        }
     }
 }
