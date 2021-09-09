@@ -1,6 +1,8 @@
 package com.app;
 
 
+import java.util.Set;
+
 /*
     Przygotuj klasę User. Klasa zawiera w sobie pola opisujące użytkownika, hasło oraz rolę (administrator lub user).
     Dla klasy należy przewidzieć metody zapewniające jej poprawne działanie. Przygotuj kolekcję bez powtarzających się
@@ -20,6 +22,14 @@ package com.app;
     opisu przygotuj aplikację, która zasymuluje przykładowy scenariusz zarządzania plikami.
  */
 public class App {
-
-
+    public static void main(String[] args) {
+        Set<User> users = Set.of(
+                new User("Iza Nowak", new char[]{'p', 'a', 's', 's','1'},AccountType.USER),
+                new User("Adam Kowal", new char[]{'p', 'a', 's', 's', '2',},AccountType.USER),
+                new User("Ola Kazal", new char[]{'p', 'a', 's', 's', '3'},AccountType.ADMIN),
+                new User("Kamil Szybki", new char[]{'p', 'a', 's', 's', '4'},AccountType.USER),
+                new User("Tomasz Jaki", new char[]{'p', 'a', 's', 's', '5'},AccountType.ADMIN),
+                new User("Marta Mucha", new char[]{'p', 'a', 's', 's', '6'},AccountType.USER)
+        );
+    }
 }

@@ -10,7 +10,7 @@ public record User(String name, char[] password, AccountType role ) {
         if(name == null || name.isEmpty()){
             throw new IllegalArgumentException("Invalid name  argument of user");
         }
-        if(password == null || password.length <8){
+        if(password == null || password.length <4){
             throw new IllegalArgumentException("Invalid password argument of user");
         }
         if(role == null){
