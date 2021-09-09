@@ -38,8 +38,11 @@ public class App {
             files.add("src/com/app/file2.txt");
             files.add("src/com/app/file3.txt");
             files.add("src/com/app/file4.txt");
+            files.add("src/com/app/file5.txt");
+            files.add("src/com/app/file6.txt");
 
             Data data  = new Data(files);
+            DataProcessing dataProcessing= new DataProcessing();
 
 
         }catch (Exception exc){
