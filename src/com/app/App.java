@@ -42,8 +42,8 @@ public class App {
             files.add("src/com/app/file6.txt");
 
             Data data  = new Data(files);
-            DataProcessing dataProcessing= new DataProcessing();
-
+            DataProcessing dataProcessing= DataProcessing.createDataProcessing(users,data);
+            dataProcessing.serviceUsers();
 
         }catch (Exception exc){
             System.out.println(exc.getMessage());

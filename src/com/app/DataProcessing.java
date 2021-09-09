@@ -1,9 +1,6 @@
 package com.app;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /*
     Klasa Przetwarzanie Danych zawiera w sobie mapę, której kluczem jest obiekt klasy User, natomiast wartością obiekt
@@ -23,8 +20,28 @@ import java.util.Scanner;
 public class DataProcessing {
     private Map<User,Data> usersDataMap;
 
-    public DataProcessing() {
-        usersDataMap = new HashMap<>();
+    private DataProcessing() {
+        this.usersDataMap = new HashMap<>();
+    }
+
+    /**
+     *
+     * @param users object Set<User>
+     * @param data  object Data
+     * @return  new object DataProcessing with pairs from users and data
+     */
+    static DataProcessing createDataProcessing(Set<User> users, Data data){
+        if(users == null || users.isEmpty()){
+            throw new IllegalArgumentException("Invalid users argument");
+        }
+        if(data == null ){
+            throw new IllegalArgumentException("Invalid data argument");
+        }
+        DataProcessing dataProcessing = new DataProcessing();
+        for(var oneUser : users){
+            dataProcessing.add(oneUser, data);
+        }
+        return dataProcessing;
     }
 
     /**
@@ -79,6 +96,7 @@ public class DataProcessing {
             System.out.println("*** The content "+counterFile+" file ***");
             System.out.println(dataPair.getValue());
             dataPair.setValue(serviceModifyData(dataPair.getValue()));
+            counterFile++;
         }
         return entryInput;
     }
@@ -120,8 +138,10 @@ public class DataProcessing {
      */
     private void processForUser(Map.Entry<User,Data> entry){
         System.out.println("Hello "+entry.getKey().name() + ", account: "+entry.getKey().role());
+        System.out.println(entry.getValue().getData().values());
         System.out.print("enter expression to find: ");
         String phraseToLookFor = readExpression();
+
         System.out.println("expression: \""+phraseToLookFor+"\" "+howOftenExpressionOccurs(phraseToLookFor, entry.getValue()));
     }
 
@@ -132,13 +152,37 @@ public class DataProcessing {
      * @return  integer value as how many times a given expression occurs
      */
     private int howOftenExpressionOccurs(String expression,Data data){
-        return Collections.frequency(data.getData().values(), expression);
+        int counter=0;
+        for( String dataFile : data.getData().values()){
+            counter+=calculateFrequency(dataFile,expression);
+        }
+        return  counter;
+    }
+
+    /**
+     *
+     * @param allExpression String as  a whole phrase
+     * @param expression    String as expression to find
+     * @return  integer value as the number of occurrences of expression  in allExpression
+     */
+    private int calculateFrequency(String allExpression, String expression){
+        int lastIndex = 0;
+        int counter =0;
+        while (lastIndex !=-1){
+            lastIndex = allExpression.indexOf(expression,lastIndex);
+            while (lastIndex!=-1){
+                counter++;
+                lastIndex+=expression.length();
+            }
+        }
+        return counter;
     }
     /**
      *
      * @return String as expression from user
      */
     private String readExpression(){
+        System.out.print("enter: ");
         return  new Scanner(System.in).nextLine();
     }
 
