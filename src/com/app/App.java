@@ -1,6 +1,7 @@
 package com.app;
 
 
+import java.util.HashSet;
 import java.util.Set;
 
 /*
@@ -31,5 +32,11 @@ public class App {
                 new User("Tomasz Jaki", new char[]{'p', 'a', 's', 's', '5'},AccountType.ADMIN),
                 new User("Marta Mucha", new char[]{'p', 'a', 's', 's', '6'},AccountType.USER)
         );
+        Set<String> files = new HashSet<>();
+        files.add("src/com/app/file1.txt");
+        files.add("src/com/app/file2.txt");
+        files.add("src/com/app/file3.txt");
+        files.add("src/com/app/file4.txt");
+
     }
 }
