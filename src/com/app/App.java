@@ -2,6 +2,7 @@ package com.app;
 
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /*
@@ -34,7 +35,7 @@ public class App {
                     new User("Marta Mucha", new char[]{'p', 'a', 's', 's', '6'},AccountType.USER)
             );
             final String path = "src/com/app/";
-            Set<String> files = new HashSet<>();
+            Set<String> files = new LinkedHashSet<>();
             files.add(path.concat("file1.txt"));
             files.add(path.concat("file2.txt"));
             files.add(path.concat("file3.txt"));

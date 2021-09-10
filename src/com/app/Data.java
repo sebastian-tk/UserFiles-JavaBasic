@@ -31,7 +31,7 @@ public class Data {
         if(filesName == null || filesName.isEmpty()){
             throw new IllegalArgumentException("FilesName is not valid");
         }
-        Map<String,String> filesAndData = new HashMap<>();
+        Map<String,String> filesAndData = new LinkedHashMap<>();
         filesName.forEach(file -> filesAndData.put(file,readData(file)));
         return filesAndData;
     }
