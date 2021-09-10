@@ -45,7 +45,6 @@ public class App {
             Data data  = new Data(files);
             DataProcessing dataProcessing= DataProcessing.createDataProcessing(users,data);
             dataProcessing.serviceUsers();
-
         }catch (Exception exc){
             System.out.println(exc.getMessage());
         }

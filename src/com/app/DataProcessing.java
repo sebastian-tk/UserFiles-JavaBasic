@@ -1,5 +1,8 @@
 package com.app;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 /*
@@ -45,7 +48,7 @@ public class DataProcessing {
 
     /**
      * Methods  allows simulates file management.Depending on the type of account, users have the option to
-     * modify or read only
+     * modify or read only. Finally, saves the changes
      */
     public void serviceUsers() {
         for (var userDataEntry : usersDataMap.entrySet()) {
@@ -54,6 +57,24 @@ public class DataProcessing {
             }
             if (isRoleTheSame(userDataEntry.getKey().role(), AccountType.ADMIN)) {
                 userDataEntry.setValue(processForAdmin(userDataEntry).getValue());
+            }
+        }
+        saveData();
+    }
+
+    /**
+     * Method saves changes admins files from map to files
+     */
+    private void saveData() {
+        for (var pairUserData : usersDataMap.entrySet()) {
+            if(pairUserData.getKey().role().equals(AccountType.ADMIN)){
+                for (var pairFileNameData : pairUserData.getValue().getData().entrySet()) {
+                    try (PrintWriter printFile = new PrintWriter(new FileWriter(pairFileNameData.getKey()))) {
+                        printFile.println(pairFileNameData.getValue());
+                    } catch (IOException exc) {
+                        throw new IllegalStateException("Error writing to file");
+                    }
+                }
             }
         }
     }
@@ -90,7 +111,7 @@ public class DataProcessing {
         System.out.println("Hello " + entryInput.getKey().name() + ", account: " + entryInput.getKey().role());
         int counterFile = 1;
         for (Map.Entry<String, String> dataPair : entryInput.getValue().getData().entrySet()) {
-            System.out.println("*** "+ counterFile + " file ***");
+            System.out.println("*** " + counterFile + " file ***");
             dataPair.setValue(serviceModifyData(dataPair.getValue()));
             counterFile++;
         }
@@ -114,6 +135,11 @@ public class DataProcessing {
         if (answer) {
             bufferData.append(readExpression("enter: "));
         }
+        System.out.println("Do you want print current data?");
+        answer = answerYes();
+        if (answer) {
+            System.out.println(bufferData);
+        }
         return bufferData.toString();
     }
 
@@ -130,10 +156,10 @@ public class DataProcessing {
      *              expression has occurred
      */
     private void processForUser(Map.Entry<User, Data> entry) {
-        System.out.println("*** Hello " + entry.getKey().name() + ", account: " + entry.getKey().role()+" ***");
+        System.out.println("*** Hello " + entry.getKey().name() + ", account: " + entry.getKey().role() + " ***");
         String phraseToLookFor = readExpression("enter expression to find: ");
         System.out.println("expression: \"" + phraseToLookFor +
-                "\" number of appearances: " + howOftenExpressionOccurs(phraseToLookFor, entry.getValue())+"\n");
+                "\" number of appearances: " + howOftenExpressionOccurs(phraseToLookFor, entry.getValue()) + "\n");
     }
 
     /**
@@ -168,10 +194,9 @@ public class DataProcessing {
     }
 
     /**
-     *
-     * @param message   String as message to user
+     * @param message String as message to user
      * @return String as expression from user
-     * */
+     */
     private String readExpression(String message) {
         System.out.print(message);
         return new Scanner(System.in).nextLine();
