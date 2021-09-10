@@ -133,7 +133,7 @@ public class DataProcessing {
      */
     private Map.Entry<User, Data> processForAdmin(Map.Entry<User, Data> entryInput) {
         int counterFile = 1;
-        for (var  dataPair : entryInput.getValue().getData().entrySet()) {
+        for (var dataPair : entryInput.getValue().getData().entrySet()) {
             System.out.println("*** " + counterFile + " file ***");
             dataPair.setValue(serviceModifyData(dataPair.getValue()));
             counterFile++;

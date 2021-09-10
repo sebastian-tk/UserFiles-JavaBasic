@@ -12,46 +12,44 @@ import java.util.*;
     niepowtarzającymi się nazwami plików tekstowych, z których należy czytać dane.
 */
 public class Data {
-    private Map<String,String> filesMap;
+    private Map<String, String> filesMap;
 
     public Data(Set<String> filesName) {
         filesMap = initMap(filesName);
     }
 
-    protected Map<String,String> getData(){
+    protected Map<String, String> getData() {
         return filesMap;
     }
 
     /**
-     *
      * @param filesName Set with Strings
-     * @return  Map<String,String> as pairs from file name and data from this file
+     * @return Map<String, String> as pairs from file name and data from this file
      */
-    private Map<String,String> initMap(Set<String> filesName){
-        if(filesName == null || filesName.isEmpty()){
+    private Map<String, String> initMap(Set<String> filesName) {
+        if (filesName == null || filesName.isEmpty()) {
             throw new IllegalArgumentException("FilesName is not valid");
         }
-        Map<String,String> filesAndData = new LinkedHashMap<>();
-        filesName.forEach(file -> filesAndData.put(file,readData(file)));
+        Map<String, String> filesAndData = new LinkedHashMap<>();
+        filesName.forEach(file -> filesAndData.put(file, readData(file)));
         return filesAndData;
     }
 
     /**
-     *
      * @param fileName String as file name
-     * @return  String as data from file
+     * @return String as data from file
      */
-    private String readData(String fileName){
-        if(fileName == null || fileName.isEmpty()){
+    private String readData(String fileName) {
+        if (fileName == null || fileName.isEmpty()) {
             throw new IllegalArgumentException("Name of file is not valid");
         }
         StringBuilder strBui = new StringBuilder();
-        try(Scanner scanFile = new Scanner(new FileReader(fileName))){
-            while (scanFile.hasNext()){
+        try (Scanner scanFile = new Scanner(new FileReader(fileName))) {
+            while (scanFile.hasNext()) {
                 strBui.append(scanFile.nextLine())
                         .append("\n");
             }
-        }catch (IOException exc){
+        } catch (IOException exc) {
             throw new IllegalStateException("File error");
         }
         return strBui.toString();

@@ -1,7 +1,6 @@
 package com.app;
 
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -23,16 +22,16 @@ import java.util.Set;
     pliki, są nadpisywane zmodyfikowaną zawartością, o ile użytkownik był administratorem. Na podstawie przedstawionego
     opisu przygotuj aplikację, która zasymuluje przykładowy scenariusz zarządzania plikami.
  */
-public class App {
+public class MainApp {
     public static void main(String[] args) {
-        try{
+        try {
             Set<User> users = Set.of(
-                    new User("Iza Nowak", new char[]{'p', 'a', 's', 's','1'},AccountType.USER),
-                    new User("Adam Kowal", new char[]{'p', 'a', 's', 's', '2',},AccountType.USER),
-                    new User("Ola Kazal", new char[]{'p', 'a', 's', 's', '3'},AccountType.ADMIN),
-                    new User("Kamil Szybki", new char[]{'p', 'a', 's', 's', '4'},AccountType.USER),
-                    new User("Tomasz Jaki", new char[]{'p', 'a', 's', 's', '5'},AccountType.ADMIN),
-                    new User("Marta Mucha", new char[]{'p', 'a', 's', 's', '6'},AccountType.USER)
+                    new User("Iza Nowak", new char[]{'p', 'a', 's', 's', '1'}, AccountType.USER),
+                    new User("Adam Kowal", new char[]{'p', 'a', 's', 's', '2',}, AccountType.USER),
+                    new User("Ola Kazal", new char[]{'p', 'a', 's', 's', '3'}, AccountType.ADMIN),
+                    new User("Kamil Szybki", new char[]{'p', 'a', 's', 's', '4'}, AccountType.USER),
+                    new User("Tomasz Jaki", new char[]{'p', 'a', 's', 's', '5'}, AccountType.ADMIN),
+                    new User("Marta Mucha", new char[]{'p', 'a', 's', 's', '6'}, AccountType.USER)
             );
             final String path = "src/com/app/";
             Set<String> files = new LinkedHashSet<>();
@@ -43,10 +42,10 @@ public class App {
             files.add(path.concat("file5.txt"));
             files.add(path.concat("file6.txt"));
 
-            Data data  = new Data(files);
-            DataProcessing dataProcessing= DataProcessing.createDataProcessing(users,data);
+            Data data = new Data(files);
+            DataProcessing dataProcessing = DataProcessing.createDataProcessing(users, data);
             dataProcessing.serviceUsers();
-        }catch (Exception exc){
+        } catch (Exception exc) {
             System.out.println(exc.getMessage());
         }
     }
