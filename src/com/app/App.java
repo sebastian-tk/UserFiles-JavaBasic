@@ -33,13 +33,14 @@ public class App {
                     new User("Tomasz Jaki", new char[]{'p', 'a', 's', 's', '5'},AccountType.ADMIN),
                     new User("Marta Mucha", new char[]{'p', 'a', 's', 's', '6'},AccountType.USER)
             );
+            final String path = "src/com/app/";
             Set<String> files = new HashSet<>();
-            files.add("src/com/app/file1.txt");
-            files.add("src/com/app/file2.txt");
-            files.add("src/com/app/file3.txt");
-            files.add("src/com/app/file4.txt");
-            files.add("src/com/app/file5.txt");
-            files.add("src/com/app/file6.txt");
+            files.add(path.concat("file1.txt"));
+            files.add(path.concat("file4.txt"));
+            files.add(path.concat("file3.txt"));
+            files.add(path.concat("file4.txt"));
+            files.add(path.concat("file5.txt"));
+            files.add(path.concat("file6.txt"));
 
             Data data  = new Data(files);
             DataProcessing dataProcessing= DataProcessing.createDataProcessing(users,data);

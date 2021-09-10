@@ -22,15 +22,6 @@ public class Data {
         return filesMap;
     }
 
-    /*protected void setValue(String key,String value){
-        if(key == null || key.isEmpty()){
-            throw new IllegalArgumentException("Invalid key argument");
-        }
-        if(value == null ){
-            throw new IllegalArgumentException("Invalid value argument");
-        }
-        filesMap.computeIfPresent(key,(mainKey,val)-> value);
-    }*/
     /**
      *
      * @param filesName Set with Strings
