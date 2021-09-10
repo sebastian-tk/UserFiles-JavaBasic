@@ -52,14 +52,38 @@ public class DataProcessing {
      */
     public void serviceUsers() {
         for (var userDataEntry : usersDataMap.entrySet()) {
-            if (isRoleTheSame(userDataEntry.getKey().role(), AccountType.USER)) {
-                processForUser(userDataEntry);
-            }
-            if (isRoleTheSame(userDataEntry.getKey().role(), AccountType.ADMIN)) {
-                userDataEntry.setValue(processForAdmin(userDataEntry).getValue());
+            System.out.println("*** Hello " + userDataEntry.getKey().name() + ", account: " + userDataEntry.getKey().role() + " ***");
+            if (getPassword(userDataEntry.getKey())) {
+                if (isRoleTheSame(userDataEntry.getKey().role(), AccountType.USER)) {
+                    processForUser(userDataEntry);
+                }
+                if (isRoleTheSame(userDataEntry.getKey().role(), AccountType.ADMIN)) {
+                    userDataEntry.setValue(processForAdmin(userDataEntry).getValue());
+                }
+            } else {
+                System.out.println(" ### Access denied ###\n");
             }
         }
         saveData();
+    }
+
+    /**
+     * @param userInput object User
+     * @return true, if user provided correct password, else false
+     */
+    private boolean getPassword(User userInput) {
+        final int NUMBER_ATTEMPTS = 3;
+        int counter = 0;
+        do {
+            if (isNotEqual(readExpression("enter password: "), String.valueOf(userInput.password()))) {
+                counter++;
+                System.out.println("\t =>>Invalid password");
+            } else {
+                System.out.println("\t# Correct password #");
+                counter = 0;
+            }
+        } while (counter != 0 && counter != NUMBER_ATTEMPTS);
+        return counter == 0;
     }
 
     /**
@@ -67,7 +91,7 @@ public class DataProcessing {
      */
     private void saveData() {
         for (var pairUserData : usersDataMap.entrySet()) {
-            if(pairUserData.getKey().role().equals(AccountType.ADMIN)){
+            if (pairUserData.getKey().role().equals(AccountType.ADMIN)) {
                 for (var pairFileNameData : pairUserData.getValue().getData().entrySet()) {
                     try (PrintWriter printFile = new PrintWriter(new FileWriter(pairFileNameData.getKey()))) {
                         printFile.println(pairFileNameData.getValue());
@@ -108,9 +132,8 @@ public class DataProcessing {
      * @return Map.Entry<User, Data> with modified or unmodified Data
      */
     private Map.Entry<User, Data> processForAdmin(Map.Entry<User, Data> entryInput) {
-        System.out.println("Hello " + entryInput.getKey().name() + ", account: " + entryInput.getKey().role());
         int counterFile = 1;
-        for (Map.Entry<String, String> dataPair : entryInput.getValue().getData().entrySet()) {
+        for (var  dataPair : entryInput.getValue().getData().entrySet()) {
             System.out.println("*** " + counterFile + " file ***");
             dataPair.setValue(serviceModifyData(dataPair.getValue()));
             counterFile++;
@@ -156,7 +179,6 @@ public class DataProcessing {
      *              expression has occurred
      */
     private void processForUser(Map.Entry<User, Data> entry) {
-        System.out.println("*** Hello " + entry.getKey().name() + ", account: " + entry.getKey().role() + " ***");
         String phraseToLookFor = readExpression("enter expression to find: ");
         System.out.println("expression: \"" + phraseToLookFor +
                 "\" number of appearances: " + howOftenExpressionOccurs(phraseToLookFor, entry.getValue()) + "\n");

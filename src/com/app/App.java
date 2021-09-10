@@ -36,7 +36,7 @@ public class App {
             final String path = "src/com/app/";
             Set<String> files = new HashSet<>();
             files.add(path.concat("file1.txt"));
-            files.add(path.concat("file4.txt"));
+            files.add(path.concat("file2.txt"));
             files.add(path.concat("file3.txt"));
             files.add(path.concat("file4.txt"));
             files.add(path.concat("file5.txt"));
